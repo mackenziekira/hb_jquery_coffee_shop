@@ -16,26 +16,26 @@
         <h1>Coffee Shop</h1>
         <br>
 
-        <img id="coffee_image" src="LOLWUT" alt="make this image work" height="300" width="200">
+        <img id="coffee_image" alt="make this image work" height="300" width="200">
 
         <h3 id="message">Click The Image To Order Coffee</h3>
 
         <table class="table">
             <tr>
                 <td class="col-md-2">
-                    <button class="btn btn-default" id="espresso">Espresso</button>
+                    <button class="btn btn-default" id="matcha">Matcha Creamball</button>
                 </td>
                 <td class="col-md-2">
-                    <button class="btn btn-default" id="latte">Latte</button>
+                    <button class="btn btn-default" id="latte">Pumpkin Spice Latte</button>
                 </td>
                 <td class="col-md-2">
-                    <button class="btn btn-default" id="hot-chocolate">Hot Chocolate</button>
+                    <button class="btn btn-default" id="milk">Platypus Milk</button>
                 </td>
             </tr>
             <tr>
                 <td>$3.25</td>
                 <td>$4.15</td>
-                <td>$2.50</td>
+                <td>$99.99</td>
             </tr>
         </table>
 
@@ -45,17 +45,43 @@
 <script src="https://code.jquery.com/jquery.js" type="text/javascript"></script>
 <script>
 
+    
+    var prices = {
+        "Brewhaha Coffee": 2.05,
+        "Matcha Creamball": 3.25,
+        "Pumpkin Spice Latte": 4.15,
+        "Platypus Milk": 99.99
+    };
+
     $('#coffee_image').attr('src', 'static/coffee_beans.jpg');
 
     $('#coffee_image').on('click', function () {
-        return makeCoffee();
+        return makeCoffee("Brewhaha Coffee");
     });
 
-    function makeCoffee() {
+    var drinksOrdered = [];
+
+    function revenue() {
+        var total = 0;
+        for (var i = 0; i < drinksOrdered.length; i++ ) {
+            total += prices[drinksOrdered[i]]
+        }
+        return total;
+    }
+
+    function makeCoffee(drinkType) {
+        drinksOrdered.push(drinkType);
          $('#coffee_image').attr('src', 'static/coffee_machine.jpg');
          setTimeout(function() { $('#coffee_image').attr('src', "static/coffee_mug.jpg"); }, 500);
          setTimeout(function() { $('#coffee_image').attr('src', "static/coffee_beans.jpg"); }, 1500);
+         $('#revenue').html(revenue());
     }
+
+
+    $('button').on('click', function () {
+        return makeCoffee($(this).html());
+    });
+
 
 </script>
 
